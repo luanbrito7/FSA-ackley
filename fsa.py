@@ -20,7 +20,7 @@ All rights reserved. Please indicate the source of the paper.
 ******************************************************************************************************************************
 '''
 def fun(X):
-    output = 1/ackley_function(X)
+    output = 21 - ackley_function(X)
     return output
 
 # This function is to initialize the flamingo population.
@@ -123,7 +123,7 @@ def MSA(pop,dim,lb,ub,Max_iter,fun,MP_b):
 
         # In the second stage, the flamingos were relocated for location renewal.
         X = flee(X, PMc, Pmu, pop, dim, Xb)
-
+        
         X = BorderCheck(X, lb, ub, pop, dim)                    # Boundary detection.
         fitness = CaculateFitness(X, fun)                       # Calculate fitness values.
         fitness, sortIndex = SortFitness(fitness)               # Sort fitness values.
@@ -139,7 +139,7 @@ def MSA(pop,dim,lb,ub,Max_iter,fun,MP_b):
                             # Set relevant parameters.
 time_start = time.time()
 pop = 200                    # Flamingo population size.
-MaxIter = 500               # Maximum number of iterations.
+MaxIter = 10000               # Maximum number of iterations.
 dim = 30                    # The dimension.
 fl=-15                     # The lower bound of the search interval.
 ul=15                      # The upper bound of the search interval.
