@@ -29,8 +29,6 @@ def initial(pop, dim, ub, lb):
     for i in range(pop):
         for j in range(dim):
             X[i, j] = random.random()*(ub[j] - lb[j]) + lb[j]
-    print(pop, dim)
-    print(ub, lb)
     return X
 
 # Calculate fitness values for each flamingo.
