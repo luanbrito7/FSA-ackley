@@ -2,27 +2,13 @@ import random
 import time
 import numpy as np
 import matplotlib.pyplot as plt
-from ackley import ackley_function
-import statistics
+import test_funcs as f
 
 rng = np.random.default_rng()
 
-# This function is the test function F1，
-# it can be obtained from Table 2 in the paper.
-
-'''
-This code is uses FSA algorithm described by WANG ZHIHENG AND LIU JIANHUA
-This code is for learning only, please do not use for commercial activities.
-For detailed algorithm details and test functions, 
-please refer to paper "Flamingo search algorithm: A new swarm intelligence optimization algorithm".
-All rights reserved. Please indicate the source of the paper.
-******************************************************************************************************************************
-******************************************************************************************************************************
-******************************************************************************************************************************
-******************************************************************************************************************************
-'''
+# This function is the test function run in the main function
 def fun(X):
-    return ackley_function(X)
+    return f.ackley_function(X)
 
 # This function is to initialize the flamingo population.
 def initial(pop, dim, ub, lb):
@@ -144,43 +130,43 @@ def MSA(pop,dim,lb,ub,Max_iter,fun,MP_b):
     return GbestScore,GbestPositon,Curve
 
 
-'''The main function '''
-                            # Set relevant parameters.
-time_start = time.time()
-pop = 100                    # Flamingo population size.
-MaxIter = 10000               # Maximum number of iterations.
-dim = 30                    # The dimension.
-fl=-15                     # The lower bound of the search interval.
-ul=15                      # The upper bound of the search interval.
-lb = fl*np.ones([dim, 1])
-ub = ul*np.ones([dim, 1])
-MP_b=0.1                    # The basic proportion of flamingos migration in the first stage.
-evolution_data = []
-GbestScore, GbestPositon, Curve = MSA(pop, dim, lb, ub, MaxIter, fun, MP_b)
-time_end = time.time()
-print(f"The running time is: {time_end  - time_start } s")
-print('The optimal value：',GbestScore)
-print('The optimal solution：',GbestPositon)
-a_f = [d['average_fitness'] for d in evolution_data]
-max_f = [d['best_fitness'] for d in evolution_data]
+if __name__ == '__main__':
+    time_start = time.time()
+    pop = 100                 # Flamingo population size.
+    MaxIter = 10000           # Maximum number of iterations.
+    dim = 30                  # The dimension.
+    fl=-15                    # The lower bound of the search interval.
+    lb = fl*np.ones([dim, 1])
+    ul=15                     # The upper bound of the search interval.
+    ub = ul*np.ones([dim, 1])
+    MP_b=0.1                    # The basic proportion of flamingos migration in the first stage.
+    
+    evolution_data = []
+    GbestScore, GbestPositon, Curve = MSA(pop, dim, lb, ub, MaxIter, fun, MP_b)
+    time_end = time.time()
+    print(f"The running time is: {time_end  - time_start } s")
+    print('The optimal value：',GbestScore)
+    print('The optimal solution：',GbestPositon)
+    a_f = [d['average_fitness'] for d in evolution_data]
+    max_f = [d['best_fitness'] for d in evolution_data]
 
-plt.plot(list(range(len(evolution_data))), a_f)
-plt.xlabel("iterations")
-plt.ylabel("average fitness")
-plt.title("Average fitness per iteration")
-plt.tight_layout()
-plt.fill_between(list(range(len(evolution_data))), a_f)
-plt.savefig('average.png')
+    plt.plot(list(range(len(evolution_data))), a_f)
+    plt.xlabel("iterations")
+    plt.ylabel("average fitness")
+    plt.title("Average fitness per iteration")
+    plt.tight_layout()
+    plt.fill_between(list(range(len(evolution_data))), a_f)
+    plt.savefig('average.png')
 
-plt.figure().clear()
-plt.close()
-plt.cla()
-plt.clf()
+    plt.figure().clear()
+    plt.close()
+    plt.cla()
+    plt.clf()
 
-plt.plot(list(range(len(evolution_data))), max_f)
-plt.xlabel("iterations")
-plt.ylabel("max fitness")
-plt.title("Max fitness per iteration")
-plt.tight_layout()
-plt.fill_between(list(range(len(evolution_data))), max_f)
-plt.savefig('max.png')
+    plt.plot(list(range(len(evolution_data))), max_f)
+    plt.xlabel("iterations")
+    plt.ylabel("max fitness")
+    plt.title("Max fitness per iteration")
+    plt.tight_layout()
+    plt.fill_between(list(range(len(evolution_data))), max_f)
+    plt.savefig('max.png')
