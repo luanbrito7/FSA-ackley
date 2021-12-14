@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from ackley import ackley_function
 import statistics
+import test_funcs as f
 
 rng = np.random.default_rng()
 
@@ -22,7 +23,7 @@ All rights reserved. Please indicate the source of the paper.
 ******************************************************************************************************************************
 '''
 def fun(X):
-    return ackley_function(X)
+    return f.f11(X)
 
 # This function is to initialize the flamingo population.
 def initial(pop, dim, ub, lb):
@@ -132,26 +133,23 @@ def MSA(pop,dim,lb,ub,Max_iter,fun,MP_b):
             GbestScore = fitness[0]
             GbestPositon[0, :] = X[0, :]
         Curve[i] = GbestScore
-        average_fitness = sum(map(lambda x: 21-x, fitness))/len(fitness)
-        best_fitness = 21-fitness[0]
+        average_fitness = sum(fitness)/len(fitness)
+        best_fitness = fitness[0]
         evolution_data.append({
             "average_fitness": average_fitness[0],
             "best_fitness": best_fitness[0]
         })
-        if fitness[0] < 0.0005:
-            print("converged with:", i, "iterations")
-            break
     return GbestScore,GbestPositon,Curve
 
 
 '''The main function '''
                             # Set relevant parameters.
 time_start = time.time()
-pop = 100                    # Flamingo population size.
-MaxIter = 10000               # Maximum number of iterations.
-dim = 30                    # The dimension.
-fl=-15                     # The lower bound of the search interval.
-ul=15                      # The upper bound of the search interval.
+pop = 50                    # Flamingo population size.
+MaxIter = 300               # Maximum number of iterations.
+dim = 20                    # The dimension.
+fl=-100                     # The lower bound of the search interval.
+ul=100                      # The upper bound of the search interval.
 lb = fl*np.ones([dim, 1])
 ub = ul*np.ones([dim, 1])
 MP_b=0.1                    # The basic proportion of flamingos migration in the first stage.
@@ -166,8 +164,8 @@ max_f = [d['best_fitness'] for d in evolution_data]
 
 plt.plot(list(range(len(evolution_data))), a_f)
 plt.xlabel("iterations")
-plt.ylabel("average fitness")
-plt.title("Average fitness per iteration")
+plt.ylabel("average value")
+plt.title("Average value per iteration")
 plt.tight_layout()
 plt.fill_between(list(range(len(evolution_data))), a_f)
 plt.savefig('average.png')
@@ -179,8 +177,8 @@ plt.clf()
 
 plt.plot(list(range(len(evolution_data))), max_f)
 plt.xlabel("iterations")
-plt.ylabel("max fitness")
-plt.title("Max fitness per iteration")
+plt.ylabel("max value")
+plt.title("Max value per iteration")
 plt.tight_layout()
 plt.fill_between(list(range(len(evolution_data))), max_f)
 plt.savefig('max.png')
