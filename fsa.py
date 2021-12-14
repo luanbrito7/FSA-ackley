@@ -2,26 +2,12 @@ import random
 import time
 import numpy as np
 import matplotlib.pyplot as plt
-from ackley import ackley_function
 import statistics
 import test_funcs as f
 
 rng = np.random.default_rng()
 
-# This function is the test function F1，
-# it can be obtained from Table 2 in the paper.
-
-'''
-This code is uses FSA algorithm described by WANG ZHIHENG AND LIU JIANHUA
-This code is for learning only, please do not use for commercial activities.
-For detailed algorithm details and test functions, 
-please refer to paper "Flamingo search algorithm: A new swarm intelligence optimization algorithm".
-All rights reserved. Please indicate the source of the paper.
-******************************************************************************************************************************
-******************************************************************************************************************************
-******************************************************************************************************************************
-******************************************************************************************************************************
-'''
+# This function is the test function run in the main function
 def fun(X):
     return f.f11(X)
 
